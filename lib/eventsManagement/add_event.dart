@@ -1,17 +1,15 @@
 import 'dart:math';
 
 import 'package:actiwime/entities/event.dart';
-import 'package:actiwime/main.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 class AddEventWindow extends StatelessWidget {
   AddEventWindow({Key? key}) : super(key: key);
 
   final _formKey = GlobalKey<FormState>();
   TextEditingController nameController = new TextEditingController();
-  TextEditingController descriptionController = new TextEditingController();
+  TextEditingController locationController = new TextEditingController();
+  TextEditingController dateController = new TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,10 +34,16 @@ class AddEventWindow extends StatelessWidget {
                             const InputDecoration(hintText: "Event Name"),
                       ),
                       TextFormField(
-                        controller: descriptionController,
+                        controller: locationController,
                         validator: validateEventName,
-                        decoration: const InputDecoration(
-                            hintText: "Event Description"),
+                        decoration:
+                            const InputDecoration(hintText: "Event Location"),
+                      ),
+                      TextFormField(
+                        controller: dateController,
+                        validator: validateEventName,
+                        decoration:
+                            const InputDecoration(hintText: "Event date"),
                       )
                     ],
                   )),
@@ -66,7 +70,8 @@ class AddEventWindow extends StatelessWidget {
       var event = Event(
           id: rand,
           name: nameController.value.text,
-          description: descriptionController.value.text);
+          location: locationController.value.text,
+          date: dateController.value.text);
 
       Navigator.of(context).pop(event);
     }

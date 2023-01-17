@@ -85,7 +85,7 @@ class _$AppDatabase extends AppDatabase {
       },
       onCreate: (database, version) async {
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `Event` (`id` INTEGER NOT NULL, `name` TEXT NOT NULL, `description` TEXT NOT NULL, PRIMARY KEY (`id`))');
+            'CREATE TABLE IF NOT EXISTS `Event` (`id` INTEGER NOT NULL, `name` TEXT NOT NULL, `date` TEXT NOT NULL, `location` TEXT NOT NULL, PRIMARY KEY (`id`))');
 
         await callback?.onCreate?.call(database, version);
       },
@@ -110,7 +110,8 @@ class _$EventDao extends EventDao {
             (Event item) => <String, Object?>{
                   'id': item.id,
                   'name': item.name,
-                  'description': item.description
+                  'date': item.date,
+                  'location': item.location
                 },
             changeListener),
         _eventUpdateAdapter = UpdateAdapter(
@@ -120,7 +121,8 @@ class _$EventDao extends EventDao {
             (Event item) => <String, Object?>{
                   'id': item.id,
                   'name': item.name,
-                  'description': item.description
+                  'date': item.date,
+                  'location': item.location
                 },
             changeListener);
 
@@ -140,7 +142,8 @@ class _$EventDao extends EventDao {
         mapper: (Map<String, Object?> row) => Event(
             id: row['id'] as int,
             name: row['name'] as String,
-            description: row['description'] as String));
+            date: row['date'] as String,
+            location: row['location'] as String));
   }
 
   @override
@@ -149,7 +152,8 @@ class _$EventDao extends EventDao {
         mapper: (Map<String, Object?> row) => Event(
             id: row['id'] as int,
             name: row['name'] as String,
-            description: row['description'] as String),
+            date: row['date'] as String,
+            location: row['location'] as String),
         arguments: [id],
         queryableName: 'Event',
         isView: false);
@@ -161,8 +165,14 @@ class _$EventDao extends EventDao {
         mapper: (Map<String, Object?> row) => Event(
             id: row['id'] as int,
             name: row['name'] as String,
-            description: row['description'] as String),
+            date: row['date'] as String,
+            location: row['location'] as String),
         arguments: [id]);
+  }
+
+  @override
+  Future<void> deleteAllEvents() async {
+    await _queryAdapter.queryNoReturn('DELETE from Event WHERE 1 = 1');
   }
 
   @override

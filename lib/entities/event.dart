@@ -6,9 +6,21 @@ import 'package:floor/floor.dart';
 class Event {
   @primaryKey
   final int id;
-
   String name;
-  String description;
+  String date;
+  String location;
 
-  Event({required this.id, required this.name, required this.description});
+  Event(
+      {required this.id,
+      required this.name,
+      required this.date,
+      this.location = ""});
+
+  factory Event.fromJson(Map<String, dynamic> json) {
+    return Event(
+        id: json['id'],
+        name: json['name'],
+        date: json['date'],
+        location: json['location']);
+  }
 }

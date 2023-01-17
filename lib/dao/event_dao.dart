@@ -19,4 +19,7 @@ abstract class EventDao {
 
   @update
   Future<void> updateEvent(Event event);
+
+  @Query('DELETE from Event WHERE 1 = 1')
+  Future<void> deleteAllEvents();
 }

@@ -9,11 +9,14 @@ class EditEventWindow extends StatelessWidget {
 
   final _formKey = GlobalKey<FormState>();
   late TextEditingController nameController;
-  late TextEditingController descriptionController;
+  late TextEditingController locationController;
+  late TextEditingController dateController;
+
   @override
   Widget build(BuildContext context) {
     nameController = TextEditingController(text: event.name);
-    descriptionController = TextEditingController(text: event.description);
+    locationController = TextEditingController(text: event.location);
+    dateController = TextEditingController(text: event.date);
     return Scaffold(
       appBar: AppBar(
         title: const Text("Edit event"),
@@ -36,10 +39,16 @@ class EditEventWindow extends StatelessWidget {
                             const InputDecoration(hintText: "Event Name"),
                       ),
                       TextFormField(
-                        controller: descriptionController,
+                        controller: locationController,
                         validator: validateEventName,
-                        decoration: const InputDecoration(
-                            hintText: "Event Description"),
+                        decoration:
+                            const InputDecoration(hintText: "Event Location"),
+                      ),
+                      TextFormField(
+                        controller: dateController,
+                        validator: validateEventName,
+                        decoration:
+                            const InputDecoration(hintText: "Event Date"),
                       )
                     ],
                   )),
@@ -63,7 +72,8 @@ class EditEventWindow extends StatelessWidget {
   void sendNewEvent(BuildContext context) {
     if (_formKey.currentState!.validate()) {
       event.name = nameController.value.text;
-      event.description = descriptionController.value.text;
+      event.location = locationController.value.text;
+      event.date = dateController.value.text;
 
       Navigator.of(context).pop(event);
     }
@@ -78,10 +88,5 @@ class EditEventWindow extends StatelessWidget {
       return "Input is too short";
     }
     return null;
-  }
-
-  void returnEvent(BuildContext context) {
-    Navigator.of(context)
-        .pop(Event(id: event.id, name: event.name, description: 'hahah'));
   }
 }

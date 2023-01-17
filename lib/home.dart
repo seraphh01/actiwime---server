@@ -77,7 +77,8 @@ class _HomePageState extends State<HomePage> {
     var oldEvent =
         widget.events.firstWhere((element) => element.id == updated.id);
     oldEvent.name = updated.name;
-    oldEvent.description = updated.description;
+    oldEvent.location = updated.location;
+    oldEvent.date = updated.date;
 
     database.eventDao.updateEvent(updated);
 

@@ -1,21 +1,17 @@
 import 'package:actiwime/dao/event_dao.dart';
 import 'package:actiwime/database/database.dart';
-import 'package:actiwime/entities/event.dart';
 import 'package:actiwime/navigator.dart';
+import 'package:actiwime/server/server.dart';
 import 'package:flutter/material.dart';
 
 late AppDatabase database;
 late EventDao eventsDao;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  Server.getEvent(7);
   print("hello");
 
-  database = await $FloorAppDatabase.databaseBuilder("app_database.db").build();
-  // eventsDao = database.eventDao;
-  // for (int i = 4; i < 11; i++) {
-  //   await eventsDao
-  //       .insertEvent(Event(id: i, name: "name", description: "description3"));
-  // }
+  database = await $FloorAppDatabase.databaseBuilder("database.db").build();
 
   runApp(const MyApp());
 }

@@ -23,11 +23,26 @@ class EventCard extends StatelessWidget {
               children: [
                 Column(
                   children: [
-                    Text(event.name),
+                    Text(
+                      event.name,
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+                    ),
                     SizedBox(
                       height: 10,
                     ),
-                    Text(event.description)
+                    Row(
+                      children: [
+                        Icon(Icons.calendar_month),
+                        Text(event.date),
+                      ],
+                    )
+                  ],
+                ),
+                Row(
+                  children: [
+                    const Icon(Icons.location_on),
+                    Text(event.location),
                   ],
                 )
               ],
